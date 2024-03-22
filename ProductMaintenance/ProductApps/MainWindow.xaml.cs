@@ -20,7 +20,9 @@ namespace ProductApps
     /// </summary>
     public partial class MainWindow : Window
     {
+        const decimal deliveryFee = 25;
         Product cProduct;
+
 
         public MainWindow()
         {
@@ -29,16 +31,22 @@ namespace ProductApps
 
         private void calculateButton_Click(object sender, RoutedEventArgs e)
         {
+            decimal totalPaymentDelivery;
             try
             {
                 cProduct = new Product(Convert.ToDecimal(priceTextBox.Text), Convert.ToInt16(quantityTextBox.Text));
                 cProduct.calTotalPayment();
                 totalPaymentTextBlock.Text = Convert.ToString(cProduct.TotalPayment);
+                totalPaymentDelivery = cProduct.TotalPayment + deliveryFee;
+                totalChargeTextBox.Text = Convert.ToString(totalPaymentDelivery);
+
             }
             catch (FormatException)
             {
                 MessageBox.Show("Enter data again", "Data Entry Error");
             }
+
+            
         }
 
         private void clearButton_Click(object sender, RoutedEventArgs e)
