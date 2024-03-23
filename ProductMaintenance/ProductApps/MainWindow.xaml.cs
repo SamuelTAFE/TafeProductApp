@@ -20,8 +20,9 @@ namespace ProductApps
     /// </summary>
     public partial class MainWindow : Window
     {
-        const decimal deliveryFee = 25;
-        const decimal wrapFee = 5;
+        const decimal deliveryFee = 25m;
+        const decimal wrapFee = 5m;
+        const decimal gstRate = 1.1m;
         Product cProduct;
 
 
@@ -34,6 +35,7 @@ namespace ProductApps
         {
             decimal totalPaymentDelivery;
             decimal totalPaymentWrap;
+            decimal totalPaymentGST;
             try
             {
                 cProduct = new Product(Convert.ToDecimal(priceTextBox.Text), Convert.ToInt16(quantityTextBox.Text));
@@ -43,6 +45,8 @@ namespace ProductApps
                 totalChargeTextBox.Text = Convert.ToString(totalPaymentDelivery);
                 totalPaymentWrap = totalPaymentDelivery + wrapFee;
                 wrapChargeTextBox.Text = Convert.ToString(totalPaymentWrap);
+                totalPaymentGST = totalPaymentWrap * gstRate;
+                gstChargeTextBox.Text = Convert.ToString(totalPaymentGST);
             }
             catch (FormatException)
             {
